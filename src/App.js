@@ -11,17 +11,26 @@ let gain1 = actx.createGain();
 osc1.connect(gain1);
 gain1.connect(out);
 
-osc1.type = "triangle";
-
 function App() {
 
-  const [osc1Freq, setOsc1Freq] = useState(osc1.frequency.value);
+  const [osc1Settings, setOsc1Settings] = useState({
+    frequency: osc1.frequency.value,
+    detune: 0,
+    type: "sine"
+  });
 
-  const changeOsc1Freq = (e) => {
-    console.log(e.target.value)
-    let {value} = e.target;
-    setOsc1Freq(value);
-    osc1.frequency.value=value;
+
+  const changeOsc1 = (e) => {
+    let {value, id} = e.target;
+    setOsc1Settings({...osc1Settings, [id]: value});
+    osc1[id].value = value;
+  }
+
+  const changeOsc1Type = (e) => {
+    let {id} = e.target;
+    console.log(id);
+    setOsc1Settings({...osc1Settings, type: id});
+    osc1.type = id;
   }
 
   return (
@@ -29,7 +38,7 @@ function App() {
       <h1>Sliders</h1>
       <button onClick={() => {osc1.start()}}>start osc</button>
       <button onClick={() => {osc1.stop()}}>stop osc1</button>
-      <Osc1 changeFreq={changeOsc1Freq} freq={osc1Freq}></Osc1>
+      <Osc1 change={changeOsc1} settings={osc1Settings} changeType={changeOsc1Type}></Osc1>
     </div>
   );
 }

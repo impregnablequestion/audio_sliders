@@ -8,3 +8,29 @@ body {
   text-align: center;
 }
 
+.control {
+  background:rgb(63, 73, 124);
+  margin: 1.5rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+  width: 100%
+}
+
+input {
+  width: 28rem;
+}
+
+.param {
+  padding: 1rem;
+}
+
+.active {
+  background-color: green;
+}
+
