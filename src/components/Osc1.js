@@ -1,12 +1,27 @@
-import React from "react";
+import React, {useContext} from "react";
+import {CTX} from "../context/Store"
 
-const Osc1 = ({change, settings, changeType}) => {
+const Osc1 = () => {
 
-    let {type, frequency, detune} = settings;
+    const [appState, updateState] = useContext(CTX);
+
+    const change = (e) => {
+        let {id, value} = e.target;
+        updateState({type: "CHANGE_OSC1", payload: {id, value}})
+    }
+
+    const changeType = (e) => {
+        let {id} = e.target;
+        updateState({type: "CHANGE_OSC1_TYPE", payload: {id}})
+    }
+
+    let {type, frequency, detune} = appState.osc1Settings;
 
     return(
         <div className="control">
             <h2>osc1</h2> 
+            <button onClick={() => {updateState({type: "START_OSC1"})}}>start osc</button>
+            <button onClick={() => {updateState({type: "STOP_OSC1"})}}>stop osc1</button>
             <div className="param">
                 <h3>frequency</h3>
                 <input onChange={change}
